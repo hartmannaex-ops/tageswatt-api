@@ -4,6 +4,10 @@ Kostenlose Schnittstelle für die Börsenstrompreise in Deutschland (Day-Ahead, 
 
 Website: [tageswatt.de/daten](https://tageswatt.de/daten/) · [English version](README.md)
 
+![Home-Assistant-Karte, die ein Nutzer mit dieser API gebaut hat: Preis jetzt, heute und morgen in Viertelstunden, günstigste 2 Stunden](docs/home-assistant-karte.png)
+
+*Eine Home-Assistant-Karte, die ein Nutzer mit dieser API gebaut und anonym geteilt hat.*
+
 | Adresse | Inhalt |
 |---|---|
 | [`/api/daten/aktuell.json`](https://tageswatt.de/api/daten/aktuell.json) | Preis jetzt, Kennzahlen für heute und morgen, alle Viertelstunden von heute 0 Uhr bis morgen 24 Uhr |

@@ -4,6 +4,10 @@ Free API for German day-ahead electricity prices (bidding zone DE-LU) in 15-minu
 
 Website: [tageswatt.de/daten](https://tageswatt.de/daten/) · [Deutsche Version](README.de.md)
 
+![Home Assistant card built by a user with this API: current price, today and tomorrow in 15-minute bars, cheapest 2 hours](docs/home-assistant-karte.png)
+
+*A Home Assistant card a user built with this API and shared anonymously.*
+
 | Endpoint | What you get |
 |---|---|
 | [`/api/daten/aktuell.json`](https://tageswatt.de/api/daten/aktuell.json) | Price right now, stats for today and tomorrow, all quarter hours from today 00:00 to tomorrow 24:00 |
