@@ -1,0 +1,10 @@
+# Tageswatt: Börsenstrompreis Deutschland (DE-LU) als Prognose für evcc
+# value in EUR/kWh netto, ohne Netzentgelt, Umlagen und Steuern
+tariffs:
+  currency: EUR
+  grid:
+    type: custom
+    forecast:
+      source: http
+      uri: https://tageswatt.de/api/daten/aktuell.json
+      jq: '[.werte[] | {start: .start, end: .ende, value: (.ct_kwh / 100)}] | tostring'

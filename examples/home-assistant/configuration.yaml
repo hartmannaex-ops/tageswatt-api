@@ -1,0 +1,19 @@
+# Tageswatt: Börsenstrompreis Deutschland (DE-LU), ct/kWh netto
+# Quelle: Bundesnetzagentur | SMARD.de, aufbereitet von tageswatt.de (CC BY 4.0)
+rest:
+  - resource: https://tageswatt.de/api/daten/aktuell.json
+    scan_interval: 300
+    sensor:
+      - name: "Börsenstrompreis"
+        unique_id: tageswatt_preis_jetzt
+        value_template: "{{ value_json.jetzt.ct_kwh if value_json.jetzt else none }}"
+        unit_of_measurement: "ct/kWh"
+        state_class: measurement
+        json_attributes:
+          - heute
+          - morgen
+          - werte
+      - name: "Börsenstrompreis Tiefstwert morgen"
+        unique_id: tageswatt_min_morgen
+        value_template: "{{ value_json.morgen.min_ct_kwh if value_json.morgen.verfuegbar else none }}"
+        unit_of_measurement: "ct/kWh"

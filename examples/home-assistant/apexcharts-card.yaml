@@ -1,0 +1,19 @@
+type: custom:apexcharts-card
+header:
+  show: true
+  title: Börsenstrompreis heute und morgen
+graph_span: 2d
+span:
+  start: day
+now:
+  show: true
+  label: jetzt
+yaxis:
+  - decimals: 0
+series:
+  - entity: sensor.borsenstrompreis
+    name: ct/kWh
+    type: column
+    float_precision: 2
+    data_generator: |
+      return (entity.attributes.werte || []).map((w) => [new Date(w.start).getTime(), w.ct_kwh]);
