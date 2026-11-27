@@ -17,3 +17,19 @@ rest:
         unique_id: tageswatt_min_morgen
         value_template: "{{ value_json.morgen.min_ct_kwh if value_json.morgen.verfuegbar else none }}"
         unit_of_measurement: "ct/kWh"
+
+# Optional: geschätzter Endkundenpreis mit Netzentgelt, Umlagen und Steuern.
+# Eigene Werte in ct/kWh netto eintragen (Netzentgelt aus dem Preisblatt deines Netzbetreibers,
+# Aufschlag aus deinem Tarif). Ohne Angabe wird mit Durchschnittswerten gerechnet.
+  - resource: https://tageswatt.de/api/daten/aktuell.json?preis=brutto&netzentgelt=9.24&aufschlag=2
+    scan_interval: 300
+    sensor:
+      - name: "Strompreis brutto"
+        unique_id: tageswatt_preis_brutto
+        value_template: "{{ value_json.jetzt.ct_kwh if value_json.jetzt else none }}"
+        unit_of_measurement: "ct/kWh"
+        state_class: measurement
+        json_attributes:
+          - heute
+          - morgen
+          - werte

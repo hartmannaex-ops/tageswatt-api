@@ -49,6 +49,22 @@ The fixed address for smart home systems. No date in the URL.
 
 The response is cached until the next quarter hour, so `jetzt` is always current.
 
+### Prices with grid fees and taxes: `?preis=brutto`
+
+Add `?preis=brutto` and every `ct_kwh` value becomes an estimated end-customer price: exchange price plus grid fee, levies, electricity tax, concession fee and supplier margin, plus 19 % VAT. The structure of the response stays the same, so existing configs only need the new URL.
+
+```
+https://tageswatt.de/api/daten/aktuell.json?preis=brutto&netzentgelt=7.5&aufschlag=1.5
+```
+
+| Parameter | Meaning (ct/kWh net) | Default |
+|---|---|---|
+| `netzentgelt` | Grid fee of your network operator (price sheet or electricity bill) | 9.24, German average (BDEW 2026) |
+| `konzession` | Concession fee, 1.32 to 2.39 depending on municipality size | 1.68, derived from the BDEW average |
+| `aufschlag` | Supplier margin of your dynamic tariff | 2 |
+
+Giving any of these implies `preis=brutto`. Levies and electricity tax are set per calendar year from official values. The response adds `jetzt.boerse_ct_kwh` and a `brutto` object listing every value used. Not included: the monthly base fee and time-variable grid fees under § 14a module 3.
+
 ## `/api/daten/preise.json` and `/api/daten/preise.csv`
 
 Parameters: `datum=YYYY-MM-DD` for one day, or `von` and `bis` for a range. Without parameters you get today.

@@ -34,6 +34,22 @@ Die feste Adresse für Smart Home. Ohne Datum in der URL.
 
 Die Antwort wird bis zur nächsten Viertelstunde zwischengespeichert, `jetzt` stimmt also immer. Ein Beispiel der Antwort steht in der [englischen README](README.md#apidatenaktuelljson).
 
+### Mit Netzentgelt und Steuern: `?preis=brutto`
+
+Mit `?preis=brutto` sind alle `ct_kwh`-Werte geschätzte Endkundenpreise: Börsenpreis plus Netzentgelt, Umlagen, Stromsteuer, Konzessionsabgabe und Aufschlag deines Anbieters, darauf 19 % Mehrwertsteuer. Der Aufbau der Antwort bleibt gleich, bestehende Konfigurationen brauchen nur die neue Adresse.
+
+```
+https://tageswatt.de/api/daten/aktuell.json?preis=brutto&netzentgelt=7.5&aufschlag=1.5
+```
+
+| Parameter | Bedeutung (ct/kWh netto) | Standard |
+|---|---|---|
+| `netzentgelt` | Netzentgelt deines Netzbetreibers (Preisblatt oder Stromrechnung) | 9,24, Durchschnitt laut BDEW 2026 |
+| `konzession` | Konzessionsabgabe, 1,32 bis 2,39 je nach Gemeindegröße | 1,68, aus dem BDEW-Durchschnitt abgeleitet |
+| `aufschlag` | Aufschlag deines dynamischen Tarifs | 2 |
+
+Wer einen dieser Werte angibt, bekommt automatisch Bruttopreise. Umlagen und Stromsteuer setzen wir je Kalenderjahr nach den amtlichen Werten ein. Dazu kommen `jetzt.boerse_ct_kwh` und ein Objekt `brutto` mit allen verwendeten Werten. Nicht enthalten sind der Grundpreis und zeitvariable Netzentgelte nach § 14a Modul 3.
+
 ## `/api/daten/preise.json` und `/api/daten/preise.csv`
 
 Parameter: `datum=JJJJ-MM-TT` für einen Tag, oder `von` und `bis` für einen Zeitraum. Ohne Parameter kommt der heutige Tag.
